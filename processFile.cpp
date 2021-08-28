@@ -41,8 +41,14 @@ void ProcessFile::bringDateAndNewName() {
 		{
 			seglist.push_back(segment);
 		}
-		this->fileDateList[i] = seglist[1];
-		this->newFileList[i] = seglist[2] + seglist[3];
+		this->fileDateList[i] = seglist[0];
+		if (seglist[0] == "Selfie") {
+			this->newFileList[i] = seglist[1] + "_" + seglist[2] + "_" + seglist[3];
+		}
+		else {
+			this->newFileList[i] = seglist[1] + "_" + seglist[2];
+		}
+		
 	}
 	cout << "날짜 추출 성공" << endl;
 }
@@ -82,13 +88,15 @@ void ProcessFile::setFileInfo() {
 	cout << "경로 및 이름 추출 성공!" << endl;
 }
 void ProcessFile::setDirectory() {
-	string path = this->outputPath;
-	string selfie = path + "\\" + SELFIE;
-	string screenshot = path + "\\" + SCREENSHOT;
+	string selfie = this->outputPath + "\\" + SELFIE;
+	string screenshot = this->outputPath + "\\" + SCREENSHOT;
 	bool isSuccess = false;
 	try {
 		isSuccess = fs::create_directories(selfie);
-		if (isSuccess) cout << "Selfie 폴더 만들기 성공!" << '\n';
+		if (isSuccess) {
+			cout << "Selfie 폴더 만들기 성공!" << '\n';
+			isSuccess = false;
+		}
 		isSuccess = fs::create_directories(screenshot);
 		if (isSuccess) cout << "Screenshot 폴더 만들기 성공!" << '\n';
 	}
@@ -115,7 +123,7 @@ void ProcessFile::moveFile() {
 			if (segment == SCREENSHOT) isScreenShot = true;
 		}
 		if (isSelfie) {
-			newPath += "\\" + SELFIE;
+			//newPath += "\\" + SELFIE;
 		}
 		if (isScreenShot) {
 			newPath += "\\" + SCREENSHOT;
