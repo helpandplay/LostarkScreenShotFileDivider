@@ -12,13 +12,13 @@ int main(void) {
 	init();
 }
 void init() {
-	string path = "C:\\Program Files (x86)\\Test\\test";
-	string output = "C:\\Users\\user\\Desktop\\새 폴더 (3)";
-	//cout << "스크린샷이 있는 파일 경로를 붙여 넣으세요. >> ";
-	//getline(cin, path, '\n');
+	string path;
+	string output;
+	cout << "스크린샷이 있는 파일 경로를 붙여 넣으세요. >> ";
+	getline(cin, path, '\n');
 	ProcessFile pf(path);
-	//cout << "저장할 경로를 붙여 넣으세요 (드라이브 내부는 안됩니다) >> ";
-	//getline(cin, output, '\n');
+	cout << "저장할 경로를 붙여 넣으세요 (드라이브 내부는 안됩니다) >> ";
+	getline(cin, output, '\n');
 	pf.setOutput(output);
 	pf.start();
 }
